@@ -21,3 +21,38 @@ results = retrieval_chain_rag_fusion.invoke("What is RAG?")
 Optional: You can plug this into an LLM for final answer generation (e.g., using a local model like phi-4).
 
 Works best when retriever.map() returns top-k (e.g., 3–5) results per query, not just 1.
+
+
+
+
+
+
+
+RAG-16 Corrective RAG:
+
+Corrective-RAG (CRAG) is a strategy for RAG that incorporates self-reflection / self-grading on retrieved documents.
+If at least one document exceeds the threshold for relevance during chatTemplate stage ( we use llm model and pass the specific template to check is the retrived document is useful or not and if all the retrived document 
+from retrive is not useful then do some generateion from extra source like web or other), then it proceeds to generation
+Before generation, it performs knowledge refinement
+This partitions the document into "knowledge strips"
+It grades each strip, and filters our irrelevant ones
+If all documents fall below the relevance threshold or if the grader is unsure, then the framework seeks an additional datasource
+It will use web search to supplement retrieval
+We will implement some of these ideas from scratch using LangGraph:
+
+Let's skip the knowledge refinement phase as a first pass. This can be added back as a node, if desired.
+If any documents are irrelevant, let's opt to supplement retrieval with web search.
+We'll use Tavily Search for web search.
+Let's use query re-writing to optimize the query for web search.
+
+
+
+RAG - 17 ( self RAG):
+
+ 1. User asks a question
+ 2. Retrieve documents using a vector store
+ 3. Grade document relevance
+ 4. Generate an answer using a local LLM
+ 5. Detect hallucination and whether it answers the question
+ 6. If necessary, rewrite the question and repeat
+  
