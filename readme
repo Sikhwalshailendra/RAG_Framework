@@ -1,3 +1,5 @@
+
+RAG -15 ( Rerank Fusion Method)
 RAG Fusion Pipeline Summary (LangChain Style)
 RAG Fusion improves document retrieval by generating multiple query variations from the user's original question.
 The pipeline is constructed using LangChain Expression Language (LCEL) chaining syntax with the | operator.
